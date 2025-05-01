@@ -1,15 +1,17 @@
 // lib/mongoose.ts
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const MONGODB_URI = process.env.MONGODB_URI!;
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI in .env.local');
+  throw new Error("Please define the MONGODB_URI in .env.local");
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 let cached = (global as any).mongoose;
 
 if (!cached) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   cached = (global as any).mongoose = { conn: null, promise: null };
 }
 
