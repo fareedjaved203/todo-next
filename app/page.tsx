@@ -1,11 +1,11 @@
 // app/page.tsx
-'use server';
+"use server";
 
-import dbConnect from '@/lib/mongoose';
-import { Todo } from '@/models/Todo';
-import { addTodo, deleteTodo, toggleTodo } from './actions';
+import dbConnect from "@/lib/mongoose";
+import { Todo } from "@/models/Todo";
+import { deleteTodo, toggleTodo } from "./actions";
+import TodoForm from "./TodoForm";
 
-// SSR
 // app/page.tsx
 export default async function Home() {
   await dbConnect();
@@ -16,27 +16,10 @@ export default async function Home() {
       <h1 className="text-3xl font-bold text-center mb-6 text-indigo-600">
         📝 Mongoose ToDo List
       </h1>
-  
+
       {/* Add Form */}
-      <form
-        action={addTodo}
-        className="flex items-center space-x-2 mb-6"
-      >
-        <input
-          name="todo"
-          type="text"
-          placeholder="Enter todo"
-          required
-          className="flex-grow px-4 py-2 rounded-lg border text-black border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-400"
-        />
-        <button
-          type="submit"
-          className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"
-        >
-          Add
-        </button>
-      </form>
-  
+      <TodoForm />
+
       {/* ToDo List */}
       <ul className="space-y-4">
         {todos.map((todo) => (
@@ -48,13 +31,21 @@ export default async function Home() {
               <form action={toggleTodo.bind(null, todo._id.toString())}>
                 <button
                   type="submit"
-                  className={`text-2xl ${todo.completed ? 'text-green-600' : 'text-gray-400 hover:text-green-500'}`}
+                  className={`text-2xl ${
+                    todo.completed
+                      ? "text-green-600"
+                      : "text-gray-400 hover:text-green-500"
+                  }`}
                 >
-                  {todo.completed ? '✅' : '⬜'}
+                  {todo.completed ? "✅" : "⬜"}
                 </button>
               </form>
               <span
-                className={`text-lg ${todo.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}
+                className={`text-lg ${
+                  todo.completed
+                    ? "line-through text-gray-500"
+                    : "text-gray-800"
+                }`}
               >
                 {todo.text}
               </span>
@@ -73,6 +64,4 @@ export default async function Home() {
       </ul>
     </main>
   );
-  
 }
-

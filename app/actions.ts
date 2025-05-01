@@ -1,11 +1,11 @@
-// Server action
+'use server'
 
 import dbConnect from '@/lib/mongoose';
 import { Todo } from '@/models/Todo';
 import { revalidatePath } from 'next/cache';
 
 export async function addTodo(formData: FormData) {
-    'use server';
+    // 'use server';
     const text = formData.get('todo')?.toString();
     if (!text) return;
   
@@ -16,7 +16,7 @@ export async function addTodo(formData: FormData) {
   
   // Delete todo
   export async function deleteTodo(id: string) {
-    'use server';
+    // 'use server';
     await dbConnect();
     await Todo.findByIdAndDelete(id);
     revalidatePath('/');
@@ -24,7 +24,7 @@ export async function addTodo(formData: FormData) {
   
   // Toggle completion
   export async function toggleTodo(id: string) {
-    'use server';
+    // 'use server';
     await dbConnect();
     const todo = await Todo.findById(id);
     if (!todo) return;
