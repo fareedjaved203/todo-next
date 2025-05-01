@@ -1,6 +1,3 @@
-// app/page.tsx
-"use server";
-
 import dbConnect from "@/lib/mongoose";
 import { Todo } from "@/models/Todo";
 import { deleteTodo, toggleTodo } from "./actions";
